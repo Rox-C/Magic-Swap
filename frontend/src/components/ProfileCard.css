@@ -1,0 +1,105 @@
+.profile-card {
+  width: 350px;
+  height: 450px;
+  background: white;
+  border: 2px solid #ffcc4c;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(252, 255, 95, 0.396);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.profile-header {
+  width: 100%;
+  background: #ffffff;
+  border-bottom: 1px solid #ffffff;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid #eee;
+}
+
+.profile-info {
+  width: 100%;
+  padding: 15px;
+}
+
+.font-label {
+  font-family: 'SimSun', serif;
+  color: #000;
+  font-size: 16px;
+  width: 80px;
+  text-align: center;
+  display: inline-block;
+  font-weight: bold;
+}
+
+.font-content {
+  font-family: 'Heiti', sans-serif;
+  color: #666;
+  font-size: 15px;
+  margin-left: 10px;
+}
+
+.signature,
+.description {
+  margin-bottom: 20px;
+  display: block;
+}
+
+.signature,
+.description {
+  margin-bottom: 20px;
+  display: block;
+}
+
+.profile-actions {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 15px;
+}
+
+.edit-button, .logout-button {
+  margin-top: 70px;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-button {
+  background-color: #83cf60;
+  margin-right: 20px;
+}
+
+.logout-button {
+  background-color: #ffd967;
+}
+
+.edit-button:hover {
+  background-color: #00a550;
+}
+
+.logout-button:hover {
+  background-color: #ff8310;
+}
+
+.profile-container {
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  height: 1000px;
+  margin-top: 200px;
+  margin-left: 550px;
+}

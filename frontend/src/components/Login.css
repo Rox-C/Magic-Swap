@@ -1,0 +1,194 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #ffffff;
+}
+
+.content-wrapper {
+    display: flex;
+    width: 900px;
+    height: 400px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.welcome-section {
+    width: 450px;
+    padding: 40px;
+    text-align: center;
+    background-color: #f8f8f8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-section {
+    width: 100px;
+    padding: 40px;
+    min-height: 500px;
+    text-align: center;
+    background-color: #f8f8f8;
+    /* display: flex; */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0px 0px 0px 0px;
+}
+
+input {
+    margin-bottom: 15px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 100%;
+}
+
+button {
+    padding: 12px;
+    background-color: #ff6a00;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 20px;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #e65c00;
+}
+
+/* 新增样式 */
+.brand-logo {
+    margin-bottom: 40px;
+    font-family: 'Lobster', 'Pacifico', 'ZCOOL KuaiLe', cursive, sans-serif;
+}
+
+.logo {
+    font-size: 32px;
+    color: #ff6a00;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-family: 'Lobster', 'Pacifico', 'ZCOOL KuaiLe', cursive, sans-serif;
+}
+
+.slogan {
+    font-family: 'ZCOOL KuaiLe', 'Lobster', 'Pacifico', cursive, sans-serif;
+    color: #d35400;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.form-title {
+    text-align: center;
+    font-family: 'ZCOOL KuaiLe', 'Lobster', '思源黑体', 'SimSun', 'Songti SC', cursive, serif;
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+    border-radius: 0px 0px 0px 0px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    /* position: relative; */
+}
+
+.extra-links {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+    font-size: 14px;
+}
+
+.extra-links a {
+    color: #666;
+    text-decoration: none;
+}
+
+.extra-links a:hover {
+    color: #ff6a00;
+}
+
+.divider {
+    position: relative;
+    margin: 25px 0;
+    text-align: center;
+    color: #999;
+}
+
+.divider span {
+    background: white;
+    padding: 0 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.divider:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    border-bottom: 1px solid #eee;
+}
+
+.alipay-login {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.alipay-login img {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+/* 修改现有样式 */
+
+
+.welcome-section {
+    background: #fd9903;  
+    padding: 40px;
+    color: #ff6a00; 
+    position: relative;
+}
+
+.logo {
+    color: #ff6a00;  
+    text-shadow: none;  
+}
+
+.error-message {
+    color: #ff4d4f;
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.logo-magic {
+    font-size: 52px;
+    margin-right: 0;
+    margin-left: 12px;
+    display: block;
+    text-align: left;
+    color : #b95107;
+}
+.logo-huanzhuang {
+    font-size: 50px;
+    margin-left: 0;
+    margin-right: 12px;
+    display: block;
+    text-align: right;
+    color : #b95107;
+}
+.slogan {
+  color: #ffffff;
+}

@@ -1,0 +1,18 @@
+.main-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding: 24px;
+  margin-left: 200px;
+  background: #ffffff;
+  min-height: calc(100vh - 80px);
+}
+
+.content-placeholder {
+  padding: 24px;
+  background: white;
+  border-radius: 8px;
+}
