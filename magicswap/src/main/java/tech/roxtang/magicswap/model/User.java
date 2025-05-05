@@ -14,10 +14,13 @@ public class User {
     private String signature;
     private String description;
     private String avatar;
+    private boolean isMerchant = false;
 
     // Getters and Setters
     public String getAvatar() { return avatar; }
     public void setAvatar(String avatar) { this.avatar = avatar; }
+    public boolean getIsMerchant() { return isMerchant; }
+    public void setIsMerchant(boolean isMerchant) { this.isMerchant = isMerchant; }
     public String getSignature() { return signature; }
     public void setSignature(String signature) { this.signature = signature; }
     

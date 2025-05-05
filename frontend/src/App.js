@@ -5,6 +5,7 @@ import Register from "./components/Register";
 import MainLayout from "./layouts/MainLayout";
 import Wardrobe from "./pages/Wardrobe";
 import Profile from "./pages/Profile";
+import Details from './pages/Details'; 
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 
@@ -38,6 +39,7 @@ function App() {
           <Route path="/wardrobe" element={<Wardrobe />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/" element={<Home />} />
+          <Route path="/details/:itemId" element={<Details />} />
           <Route path="/shop" element={<Shop />} />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />

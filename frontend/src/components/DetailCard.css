@@ -1,0 +1,160 @@
+/* 主容器 */
+.detail-card {
+  margin-left: 124px; /* 侧边栏100px + 间隙24px */
+  padding: 40px;
+  width: 900px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+/* 固定布局 */
+.fixed-layout {
+  display: grid;
+  grid-template-columns: 450px 1fr;
+  gap: 40px;
+}
+
+/* 图片展示区 */
+.main-image-frame {
+  width: 450px;
+  height: 540px;
+  border: 3px solid #FFE5B6;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 商品信息区 */
+.item-title {
+  font-size: 28px;
+  color: #333;
+  border-left: 4px solid #FFBB4F;
+  padding-left: 16px;
+  margin: 0 0 24px 0;
+}
+
+.price-box {
+  color: #E4393C;
+  font-size: 36px;
+  font-weight: 700;
+  margin: 24px 0;
+}
+
+.desc-section {
+  padding: 24px 0;
+  border-top: 2px solid #EEE;
+}
+
+.desc-section h3 {
+  color: #666;
+  margin: 0 0 16px 0;
+}
+
+/* 操作按钮 */
+.action-buttons {
+  display: flex;
+  gap: 24px;
+  margin: 32px 0;
+  padding: 24px 0;
+  border-top: 2px solid #EEE;
+}
+
+.edit-btn, .wardrobe-btn {
+  width: 180px;
+  height: 48px;
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.edit-btn {
+  background: #83CF60;
+  color: white;
+}
+
+.wardrobe-btn {
+  background: #FFD967;
+  color: #333;
+}
+
+/* 评价面板 */
+.review-panel {
+  background: #FFF9F0;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.star-rating {
+  margin: 16px 0;
+}
+
+.star {
+  font-size: 28px;
+  color: #DDD;
+  cursor: pointer;
+  margin-right: 8px;
+  transition: color 0.2s;
+}
+
+.star.active {
+  color: #FFBB4F;
+}
+
+.review-input {
+  width: 100%;
+  height: 100px;
+  border: 2px solid #FFE5B6;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.submit-btn {
+  background: #FFBB4F;
+  color: white;
+  padding: 12px 32px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* 评价列表 */
+.review-item {
+  padding: 24px 0;
+  border-bottom: 1px solid #EEE;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.user-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #FFE5B6;
+}
+
+.review-date {
+  color: #999;
+  font-size: 14px;
+  margin-left: auto;
+}
+.avatar-error {
+  filter: grayscale(100%);
+  opacity: 0.6;
+}

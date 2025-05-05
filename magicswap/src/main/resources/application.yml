@@ -1,0 +1,4 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/magicswap  # 确保数据库名称对应
