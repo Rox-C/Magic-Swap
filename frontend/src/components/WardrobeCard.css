@@ -1,184 +1,44 @@
-.wardrobe-card {
-    width: 750px;
-    min-height: 600px;
-    background: white;
-    border: 2px solid #ffcc4c;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(252, 255, 95, 0.396);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    padding: 25px;
-}
-
-.model-item.selected,
-.clothing-item.selected {
-    border-color: #ff8310;
-    box-shadow: 0 0 0 2px #ffd967;
-}
-
-.wardrobe-layout {
-    padding: 30px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.wardrobe-main {
-    display: flex;
-    gap: 40px;
-}
-
-.try-on-panel {
-    flex: 1;
-    max-width: 350px;
-    background: #fff;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.panel-title {
-    color: #333;
-    font-size: 20px;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #eee;
-}
-
-.result-preview {
-    height: 400px;
-    background: #f8f8f8;
-    border-radius: 8px;
-    margin-bottom: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.try-on-button {
-    background: #ffd967;
-    color: #333;
-    padding: 12px 30px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.try-on-button:hover {
-    background: #ff8310;
-}
-
-.try-on-button:disabled {
-    background: #ddd;
-    cursor: not-allowed;
-}
-
-.hint-text {
-    color: #999;
-    font-size: 14px;
-}
-
 .wardrobe-section {
-    flex: 1;
     background: white;
-    border: 2px solid #ffcc4c;
     border-radius: 12px;
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.content-card {
-    flex: 1;
-    min-height: 500px;
-}
-
-.section-title {
-    font-family: 'SimSun', serif;
-    font-size: 20px;
-    color: #333;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #eee;
-}
-
-.model-grid,
-.clothing-grid {
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .section-title {
+    margin: 0 0 1rem 0;
+    color: #343a40;
+    font-size: 1.25rem;
+  }
+  
+  .grid-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: min-content;
-    gap: 20px;
-    margin: 20px 0;
-    flex-grow: 0;
-}
-
-.model-item,
-.clothing-item {
-    width: 100%;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1rem;
+  }
+  
+  .card {
     aspect-ratio: 2/3;
-    background: #f5f5f5;
-    border: 2px solid transparent;
     border-radius: 8px;
     overflow: hidden;
-    transition: all 0.3s;
     cursor: pointer;
+    transition: all 0.3s ease;
     position: relative;
-}
-
-.selectable {
-    cursor: pointer;
-}
-
-.selectable:hover {
+    border: 2px solid transparent;
+  }
+  
+  .card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    border-color: #ffd967;
-}
-
-.selected {
-    border-color: #ff8310 !important;
-    box-shadow: 0 0 0 2px #ffd967;
-}
-
-.preview-image {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  }
+  
+  .card.selected {
+    border-color: #007bff;
+  }
+  
+  .preview-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
-
-.upload-container {
-    border: 2px dashed #ffcc4c;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s;
-    aspect-ratio: 3/2;
-}
-
-.upload-container:hover {
-    background: rgba(255,216,103,0.1);
-    border-color: #ff8310;
-    transform: translateY(-3px);
-}
-
-.upload-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-}
-
-.upload-icon {
-    width: 32px;
-    height: 32px;
-    fill: #ff8310;
-}
-
-.upload-text {
-    color: #ff8310;
-    font-size: 14px;
-    font-weight: 500;
-}
+    background: #f1f3f5;
+  }

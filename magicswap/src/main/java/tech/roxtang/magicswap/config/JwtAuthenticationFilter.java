@@ -28,10 +28,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response, jakarta.servlet.FilterChain chain)
             throws ServletException, IOException {
         // 获取请求头中的Authorization字段
+        
         String header = request.getHeader("Authorization");
         String token = null;
         String email = null;
-
+        logger.info("Into  JwtAuthenticationFilter");
+        logger.info("请求 URI: {}", request.getRequestURI());
+        logger.info("请求方法: {}", request.getMethod());
+        logger.info("请求头中的 Authorization: {}", header);
         // 检查Authorization头是否以"Bearer "开头
         if (header != null && header.startsWith("Bearer ")) {
             token = header.substring(7); // 去掉"Bearer "前缀
@@ -54,11 +58,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     email, null, null);
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             // 设置认证信息到SecurityContext
-            logger.info("sucessfully: {}", email);
+            logger.info("successfully: {}", email);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
         // 继续过滤器链
         chain.doFilter(request, response);
+        logger.info("Final authentication: {}", SecurityContextHolder.getContext().getAuthentication());
     }
 }

@@ -10,12 +10,17 @@ import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 
 function isAuthenticated() {
-  return !!localStorage.getItem("token");
+  // 增加token有效性检查（示例）
+  const token = localStorage.getItem("token");
+  if (!token) return false;
+  
+  // 此处可添加JWT过期时间校验逻辑
+  return true;
 }
 
 function PrivateRoute() {
   if (!isAuthenticated()) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/login" replace />;
   }
   return (
     <MainLayout>
@@ -33,16 +38,21 @@ function App() {
       }}
     >
       <Routes>
+        {/* 公共路由 */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+
+        {/* 需要认证的私有路由 */}
         <Route element={<PrivateRoute />}>
+          <Route index element={<Home />} />
           <Route path="/wardrobe" element={<Wardrobe />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/" element={<Home />} />
           <Route path="/details/:itemId" element={<Details />} />
           <Route path="/shop" element={<Shop />} />
         </Route>
-        <Route path="*" element={<Navigate to="/" />} />
+
+        {/* 兜底路由 */}
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>
   );

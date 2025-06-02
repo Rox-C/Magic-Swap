@@ -9,8 +9,7 @@ import tech.roxtang.magicswap.model.User;
 import tech.roxtang.magicswap.repository.ItemRepository;
 import tech.roxtang.magicswap.repository.UserRepository;
 import java.io.IOException;
-import java.util.List;
-
+import java.util.Base64; 
 @RestController
 @RequestMapping("/api/items")
 public class ItemController {
@@ -23,48 +22,39 @@ public class ItemController {
         this.userRepository = userRepository;
     }
 
-    // 创建商品（支持多图上传）
+    // 创建商品（不支持多图上传）
     @PostMapping
     public ResponseEntity<?> createItem(
         Authentication authentication,
-        @RequestPart("item") Item item,
-        @RequestPart("images") MultipartFile[] files
+        @RequestBody Item item
     ) {
         try {
-            User user = userRepository.findByEmail(authentication.getName());
-            
-            // 处理图片上传
-            if (files == null || files.length == 0) {
-                return ResponseEntity.badRequest().body("至少上传一张图片");
-            }
-            item.setImages(files); // 调用Item的setImages方法处理Base64编码
-            
-            // 关联用户
+            String userEmail = authentication.getName();
+            User user = userRepository.findByEmail(userEmail);
+    
+            // 设置用户ID
             item.setUserId(user.getId());
+    
+            // 保存商品到数据库
             Item savedItem = itemRepository.save(item);
-            
             return ResponseEntity.ok(savedItem);
-        } catch (IOException e) {
-            return ResponseEntity.internalServerError().body("图片处理失败");
+    
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    // 获取商品详情
     @GetMapping("/{itemId}")
     public ResponseEntity<?> getItem(@PathVariable String itemId) {
         return ResponseEntity.of(itemRepository.findById(itemId));
     }
 
-    // 获取当前用户的商品列表
     @GetMapping("/my")
     public ResponseEntity<?> getMyItems(Authentication authentication) {
         User user = userRepository.findByEmail(authentication.getName());
         return ResponseEntity.ok(itemRepository.findByUserId(user.getId()));
     }
 
-    // 删除商品（新增方法）
     @DeleteMapping("/{itemId}")
     public ResponseEntity<?> deleteItem(
         Authentication authentication, 

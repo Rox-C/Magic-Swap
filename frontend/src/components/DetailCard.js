@@ -6,40 +6,40 @@ export default function DetailCard({ item }) {
   const [newReview, setNewReview] = useState({ rating: 5, content: '' });
 
   // 提交评价处理
-// 修改DetailCard组件中的handleSubmit方法
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  if (!newReview.content.trim()) return;
+  // 修改DetailCard组件中的handleSubmit方法
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!newReview.content.trim()) return;
 
-  try {
-    // 调用父组件传递的提交方法
-    const response = await fetch(`/api/reviews`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        // 实际项目需要添加认证头
-      },
-      body: JSON.stringify({
-        itemId: item.id,       // 确保item prop包含id
-        content: newReview.content,
-        rating: newReview.rating,
-        // 实际项目应从用户系统获取真实userId
-        userId: "user-001"  
-      })
-    });
+    try {
+      // 调用父组件传递的提交方法
+      const response = await fetch(`/api/reviews`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // 实际项目需要添加认证头
+        },
+        body: JSON.stringify({
+          itemId: item.id,       // 确保item prop包含id
+          content: newReview.content,
+          rating: newReview.rating,
+          // 实际项目应从用户系统获取真实userId
+          userId: "user-001"  
+        })
+      });
 
-    if (!response.ok) throw new Error('提交失败');
-    
-    // 成功后更新前端状态
-    const savedReview = await response.json();
-    setReviews([savedReview, ...reviews]);
-    setNewReview({ rating: 5, content: '' });
+      if (!response.ok) throw new Error('提交失败');
+      
+      // 成功后更新前端状态
+      const savedReview = await response.json();
+      setReviews([savedReview, ...reviews]);
+      setNewReview({ rating: 5, content: '' });
 
-  } catch (error) {
-    console.error('提交评价失败:', error);
-    alert('评价提交失败，请重试');
-  }
-};
+    } catch (error) {
+      console.error('提交评价失败:', error);
+      alert('评价提交失败，请重试');
+    }
+  };
 
   return (
     <div className="detail-card">

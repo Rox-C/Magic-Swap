@@ -15,8 +15,11 @@ public class User {
     private String description;
     private String avatar;
     private boolean isMerchant = false;
+    private String shopName;
 
     // Getters and Setters
+    public String getShopName() { return shopName; }
+    public void setShopName(String shopName) { this.shopName = shopName; }
     public String getAvatar() { return avatar; }
     public void setAvatar(String avatar) { this.avatar = avatar; }
     public boolean getIsMerchant() { return isMerchant; }

@@ -1,6 +1,7 @@
 .profile-card {
   width: 350px;
-  height: 450px;
+  min-height: 450px; 
+  height: auto;
   background: white;
   border: 2px solid #ffcc4c;
   border-radius: 12px;
@@ -8,6 +9,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   padding: 20px;
 }
@@ -69,22 +71,25 @@
   padding: 15px;
 }
 
-.edit-button, .logout-button {
-  margin-top: 70px;
+.edit-button, .logout-button ,.register-merchant-button{
+  margin-top: 0px;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 10px;
   border-radius: 5px;
   cursor: pointer;
 }
 
 .edit-button {
   background-color: #83cf60;
-  margin-right: 20px;
 }
 
 .logout-button {
   background-color: #ffd967;
+}
+
+.register-merchant-button{
+  background-color: #1890ff;
 }
 
 .edit-button:hover {
@@ -95,6 +100,10 @@
   background-color: #ff8310;
 }
 
+.register-merchant-button:hover {
+  background-color: #40a9ff;
+}
+
 .profile-container {
   /* display: flex;
   justify-content: center;
@@ -102,4 +111,118 @@
   height: 1000px;
   margin-top: 200px;
   margin-left: 550px;
+}
+
+.profile-actions {
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 0 0 0;
+}
+
+/* 修改按钮基础样式 */
+.edit-button, 
+.logout-button,
+.register-merchant-button {
+  margin-top: 0px;
+  color: white;
+  border: none;
+  padding: 10px 15px; /* 增加左右padding */
+  border-radius: 5px;
+  cursor: pointer;
+  flex: 1; /* 等分空间 */
+  min-width: 80px; /* 最小宽度 */
+  white-space: nowrap; /* 禁止文字换行 */
+}
+
+/* 头像编辑相关样式 */
+.avatar-container {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+}
+
+.avatar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.avatar-container:hover .avatar-overlay {
+  opacity: 1;
+}
+
+.avatar-editor-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.editor-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.editor-actions {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+/* 编辑字段样式 */
+.edit-field {
+  margin-bottom: 12px;
+}
+
+.edit-field label {
+  display: block;
+  margin-bottom: 5px;
+  color: #666;
+  font-weight: bold;
+}
+
+.edit-field input {
+  height: 32px;
+  padding: 4px 8px;
+}
+
+.edit-field textarea {
+  height: 60px;
+  resize: vertical;
+}
+
+.save-button {
+  background-color: #4CAF50 !important;
+}
+
+.cancel-button {
+  background-color: #f44336 !important;
+}
+
+.profile-info {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 250px;
+  padding: 15px;
 }

@@ -1,0 +1,103 @@
+/* ItemCard.css */
+.item-grid-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.item-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.item-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s;
+  height: 100%; /* 新增：确保卡片高度统一 */
+}
+
+
+.item-card:hover {
+  transform: scale(1.05);
+}
+
+.item-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease; /* 新增：添加图片缩放动画 */
+}
+.item-image:hover img {
+  transform: scale(1.1); /* 新增：悬停时图片放大效果 */
+}
+
+.item-content {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.item-title {
+  color: #ff4d4f;
+  font-size: 1.2em;
+  margin: 0 0 10px 0;
+}
+
+.item-brief {
+  color: #666;
+  font-size: 0.9em;
+  margin: 0 0 20px 0;
+  flex-grow: 1;
+}
+
+.item-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 15px;
+}
+
+.item-button {
+  background-color: #ffbb33;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.item-button:hover {
+  background-color: #ffa500;
+}
+
+.item-button.favorite {
+  background-color: #ff7f50;
+}
+
+/* 响应式设计 */
+@media (max-width: 992px) {
+  .item-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .item-grid {
+    grid-template-columns: 1fr;
+  }
+}

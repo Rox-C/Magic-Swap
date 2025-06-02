@@ -17,7 +17,8 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.http.HttpMethod;
 import java.util.Arrays;
-
+import javax.servlet.http.HttpServletResponse; 
+import org.springframework.security.config.http.SessionCreationPolicy;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -39,31 +40,43 @@ public class SecurityConfig {
         http
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth
-            // 允许公开访问的路径 ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
-            .requestMatchers("/api/auth/**").permitAll()               // 保留原登录注册
-            .requestMatchers(HttpMethod.GET, "/api/user").permitAll()   // 保留原用户信息
-            .requestMatchers(HttpMethod.GET, "/api/items/{itemId}").permitAll()      // 新增：商品详情页
-            .requestMatchers(HttpMethod.GET, "/api/reviews/item/**").permitAll()     // 新增：商品评价列表
-            // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
-            // 其他所有请求需要认证 ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
-            .requestMatchers(HttpMethod.GET, "/api/wardrobe").permitAll()
-            .anyRequest().authenticated()
+            // 明确设置为无状态会话
+            .sessionManagement(session -> session
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
-        .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
-        return http.build();
-        // http
-        //     // 配置CORS（可选）
-        //     //.cors(cors -> cors.configurationSource(corsConfigurationSource()))
-        //     // 禁用CSRF保护
-        //     .csrf(csrf -> csrf.disable())
-        //     // 配置请求权限
-        //     .authorizeHttpRequests(auth -> auth
-        //         // 允许所有请求无需认证
-        //         .anyRequest().permitAll()
-        //     );
+            .authorizeHttpRequests(auth -> auth
+                // 公共路径放行
+                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/items/**").permitAll()
+                
+                // 私有路径需认证
+                .requestMatchers(HttpMethod.POST, "/api/items").authenticated()
+                .requestMatchers(HttpMethod.PUT, "/api/items/**").authenticated()
+                .requestMatchers(HttpMethod.DELETE, "/api/items/**").authenticated()
+                
+                // 其他所有请求都需要认证
+                .anyRequest().authenticated()
+            )
+            // 修改未认证处理逻辑，返回401响应而不是重定向
+            .exceptionHandling(e -> e.authenticationEntryPoint(
+                (request, response, authException) -> {
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    response.setContentType("application/json");
+                    response.getWriter().write("{\"error\": \"unauthorized\", \"message\": \"请先登录\"}");
+                }
+            ))
+            .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
+            .logout(logout -> logout
+                .logoutUrl("/api/logout")
+                .logoutSuccessHandler((request, response, authentication) -> {
+                    response.setStatus(HttpServletResponse.SC_OK);
+                    response.getWriter().write("Logout success");
+                })
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .clearAuthentication(true));
         
-        // return http.build();
+        return http.build();
     }
 
     @Bean
@@ -71,8 +84,9 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOriginPatterns(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token", "*"));
-        configuration.addExposedHeader("Authorization");
+        // 合并所有允许的头部
+        configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
+        configuration.addExposedHeader("authorization");
         configuration.setExposedHeaders(Arrays.asList("x-auth-token"));
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
