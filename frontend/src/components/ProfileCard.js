@@ -43,7 +43,7 @@ function ProfileCard({ username, email, signature, description, avatar, isMercha
         // updates.avatar = fullBase64.split(',')[1]; 
       }
 
-      const response = await fetch('http://localhost:8080/api/user/update', {
+      const response = await fetch('http://10.192.49.63:8080/api/user/update', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ function ProfileCard({ username, email, signature, description, avatar, isMercha
   const handleLogout = () => {
     setLoading(true);
     setError('');
-    fetch('http://localhost:8080/api/logout', {
+    fetch('http://10.192.49.63:8080/api/logout', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -100,6 +100,7 @@ function ProfileCard({ username, email, signature, description, avatar, isMercha
     })
     .then(() => {
       localStorage.removeItem('token');
+      localStorage.removeItem('favoritedItems');
       window.location.href = '/login';
     })
     .catch(error => {
@@ -124,7 +125,7 @@ function ProfileCard({ username, email, signature, description, avatar, isMercha
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 5000);
   
-      const response = await fetch('http://localhost:8080/api/merchant/register', {
+      const response = await fetch('http://10.192.49.63:8080/api/merchant/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

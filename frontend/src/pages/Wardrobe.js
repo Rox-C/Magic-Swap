@@ -14,6 +14,8 @@ export default function Wardrobe() {
     clothes: []
   });
 
+  // const [uploading, setUploading] = useState(false);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [selectedModel, setSelectedModel] = useState(null);
@@ -23,7 +25,7 @@ export default function Wardrobe() {
     const fetchWardrobe = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:8080/api/wardrobe', {
+        const response = await fetch('http://10.192.49.63:8080/api/wardrobe', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -32,6 +34,12 @@ export default function Wardrobe() {
         if (!response.ok) throw new Error('获取衣橱数据失败');
         
         const { clothes } = await response.json();
+
+        // const { items } = await response.json();  // 现在返回的是items
+        // const clothes = items.map(item => ({
+        //   id: item.id,
+        //   preview: item.image ? `data:image/jpeg;base64,${item.image}` : '/default-preview.jpg'
+        // }));
         
         setWardrobeData(prev => ({
           ...prev,
@@ -42,7 +50,7 @@ export default function Wardrobe() {
               : '/default-preview.jpg'
           }))
         }));
-
+        setError('');
       } catch (err) {
         setError(err.message);
       } finally {
@@ -52,6 +60,67 @@ export default function Wardrobe() {
 
     fetchWardrobe();
   }, []);
+
+  // // 图片上传处理
+  // const handleImageUpload = async (file) => {
+  //   if (!file) return;
+    
+  //   try {
+  //     // 验证文件
+  //     if (!file.type.match(/image\/(jpeg|png)/)) {
+  //       throw new Error('只支持JPEG/PNG图片');
+  //     }
+  //     if (file.size > 2 * 1024 * 1024) {
+  //       throw new Error('图片大小不能超过2MB');
+  //     }
+      
+  //     setUploading(true);
+  //     setError('');
+      
+  //     const token = localStorage.getItem('token');
+  //     const formData = new FormData();
+  //     formData.append('image', file);
+      
+  //     // 调用上传API
+  //     const response = await fetch('http://10.192.49.63:8080/api/wardrobe/upload', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Authorization': `Bearer ${token}`
+  //       },
+  //       body: formData
+  //     });
+      
+  //     if (!response.ok) {
+  //       const errorData = await response.json();
+  //       throw new Error(errorData.message || '上传失败');
+  //     }
+      
+  //     const newItem = await response.json();
+      
+  //     // 更新前端状态
+  //     setWardrobeData(prev => ({
+  //       ...prev,
+  //       clothes: [...prev.clothes, {
+  //         id: newItem.id,
+  //         preview: `data:image/jpeg;base64,${newItem.image}`
+  //       }]
+  //     }));
+  //   } catch (err) {
+  //     setError(`上传失败: ${err.message}`);
+  //   } finally {
+  //     setUploading(false);
+  //   }
+  // };
+
+  // // 触发文件选择
+  // const triggerFileInput = () => {
+  //   const hiddenInput = document.createElement('input');
+  //   hiddenInput.type = 'file';
+  //   hiddenInput.accept = 'image/jpeg, image/png';
+  //   hiddenInput.onchange = (e) => handleImageUpload(e.target.files[0]);
+  //   hiddenInput.click();
+  // };
+
   const handleTryOn = async () => {
     try {
       setLoadingResults(true); // 新增加载状态
@@ -76,7 +145,7 @@ export default function Wardrobe() {
       };
   
       // 发送到Python后端
-      const response = await fetch('http://localhost:5000/api/try-on', {
+      const response = await fetch('http://10.192.49.63:5000/api/try-on', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -179,7 +248,39 @@ const handleDownload = () => {
           onSelect={setSelectedClothing}
           onImageError={handleImageError}
         />
-
+        
+        {/* <div className="wardrobe-section">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+            <h3 className="section-title">我的收藏</h3>
+            <button 
+              className="upload-button"
+              onClick={triggerFileInput}
+              disabled={uploading || loading}
+            >
+              {uploading ? '上传中...' : '+ 添加衣物'}
+            </button>
+          </div>
+          <div className="grid-container">
+            {wardrobeData.clothes.map(item => (
+              <div 
+                key={item.id} 
+                className={`card ${selectedClothing === item.id ? 'selected' : ''}`}
+                onClick={() => setSelectedClothing(item.id)}
+              >
+                <img
+                  src={item.preview}
+                  alt="衣物预览"
+                  className="preview-image"
+                  onError={(e) => {
+                    e.target.src = '/default-preview.jpg';
+                    e.target.alt = '图片加载失败';
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        </div> */}
+        
         <div className="try-on-panel">
           <div className="preview-area">
             {loadingResults ? (

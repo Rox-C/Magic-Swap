@@ -186,3 +186,24 @@
   .tryon-button {
     width: auto;
   }
+
+  /* 在文件末尾添加上传按钮样式 */
+  /* .upload-button {
+    padding: 0.5rem 1rem;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.3s;
+  }
+
+  .upload-button:hover:not(:disabled) {
+    background: #388E3C;
+  }
+
+  .upload-button:disabled {
+    background: #A5D6A7;
+    cursor: not-allowed;
+  } */
