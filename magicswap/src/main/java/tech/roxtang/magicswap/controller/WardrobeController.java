@@ -4,12 +4,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import tech.roxtang.magicswap.model.Wardrobe;
 import tech.roxtang.magicswap.model.Item; // Assuming Item class is correctly defined
 import tech.roxtang.magicswap.repository.ItemRepository;
 import tech.roxtang.magicswap.repository.WardrobeRepository;
 
 import java.util.*;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/wardrobe")
@@ -23,6 +26,85 @@ public class WardrobeController {
         this.wardrobeRepository = wardrobeRepository;
         this.itemRepository = itemRepository;
     }
+
+    // 修改
+    // 新增：图片上传接口
+    // @PostMapping("/upload")
+    // @PreAuthorize("isAuthenticated()")
+    // public ResponseEntity<?> uploadClothing(
+    //     @RequestParam("image") MultipartFile file,
+    //     @AuthenticationPrincipal String userId
+    // ) {
+    //     try {
+    //         // 验证图片
+    //         if (file.isEmpty()) {
+    //             return ResponseEntity.badRequest().body(
+    //                 Collections.singletonMap("error", "请选择图片文件")
+    //             );
+    //         }
+    //         if (file.getSize() > 2 * 1024 * 1024) {
+    //             return ResponseEntity.badRequest().body(
+    //                 Collections.singletonMap("error", "图片大小不能超过2MB")
+    //             );
+    //         }
+    //         String contentType = file.getContentType();
+    //         if (contentType == null || 
+    //             !(contentType.equals("image/jpeg") || contentType.equals("image/png"))) {
+    //             return ResponseEntity.badRequest().body(
+    //                 Collections.singletonMap("error", "只支持JPEG或PNG格式图片")
+    //             );
+    //         }
+            
+    //         // 创建新的衣物Item
+    //         Item newItem = new Item();
+    //         newItem.setUserId(userId);
+            
+    //         // 将MultipartFile转换为Base64字符串
+    //         byte[] fileBytes = file.getBytes();
+    //         String base64Image = Base64.getEncoder().encodeToString(fileBytes);
+    //         newItem.setImage(base64Image);
+            
+    //         newItem.setTitle(file.getOriginalFilename());
+    //         newItem.setBrief("通过上传添加的衣物");
+    //         newItem.setDetails("");
+            
+    //         // 保存衣物
+    //         Item savedItem = itemRepository.save(newItem);
+            
+    //         // // 添加到用户衣橱
+    //         // Wardrobe wardrobe = wardrobeRepository.findByUserId(userId)
+    //         //     .orElseGet(() -> {
+    //         //         Wardrobe newWardrobe = new Wardrobe(userId);
+    //         //         return wardrobeRepository.save(newWardrobe);
+    //         //     });
+            
+    //         // // 确保衣橱的clothingIds列表已初始化
+    //         // if (wardrobe.getClothingIds() == null) {
+    //         //     wardrobe.setClothingIds(new ArrayList<>());
+    //         // }
+            
+    //         // if (!wardrobe.getClothingIds().contains(savedItem.getId())) {
+    //         //     wardrobe.getClothingIds().add(savedItem.getId());
+    //         //     wardrobeRepository.save(wardrobe);
+    //         // }
+            
+    //         // 构建响应数据
+    //         Map<String, Object> responseData = new HashMap<>();
+    //         responseData.put("id", savedItem.getId());
+    //         responseData.put("preview", "data:image/jpeg;base64," + base64Image);
+            
+    //         return ResponseEntity.ok(responseData);
+            
+    //     } catch (IOException e) {
+    //         return ResponseEntity.internalServerError().body(
+    //             Collections.singletonMap("error", "图片处理失败: " + e.getMessage())
+    //         );
+    //     } catch (Exception e) {
+    //         return ResponseEntity.internalServerError().body(
+    //             Collections.singletonMap("error", "上传失败: " + e.getMessage())
+    //         );
+    //     }
+    // }
 
     // 收藏衣物接口
     @PostMapping("/add")
@@ -141,16 +223,30 @@ public class WardrobeController {
         for (Item item : clothes) {
             Map<String, String> cloth = new HashMap<>();
             cloth.put("id", item.getId());
+            // 修改
             cloth.put("preview", item.getImage()); // 直接返回Base64图片数据
             // Consider adding other item details if needed by the wardrobe view
-            // cloth.put("title", item.getTitle()); 
+            // cloth.put("title", item.getTitle());
+
+            // if (item.getImage() != null && !item.getImage().isEmpty()) {
+            //     cloth.put("preview", "data:image/jpeg;base64," + item.getImage());
+            // } else {
+            //     cloth.put("preview", "/default-preview.jpg");
+            // }
+
             clothesData.add(cloth);
         }
 
+        // 修改
         response.put("wardrobeId", wardrobe.getId()); // May be null if new and unsaved
         response.put("clothes", clothesData);
         
         return ResponseEntity.ok(response);
+
+        // Map<String, Object> wardrobeData = new HashMap<>();
+        // wardrobeData.put("clothes", clothesData);
+        
+        // return ResponseEntity.ok(wardrobeData);
     }
 
     // 异常处理

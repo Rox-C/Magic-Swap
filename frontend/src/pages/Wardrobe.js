@@ -14,6 +14,7 @@ export default function Wardrobe() {
     clothes: []
   });
 
+  // 修改
   // const [uploading, setUploading] = useState(false);
 
   const [loading, setLoading] = useState(true);
@@ -34,12 +35,6 @@ export default function Wardrobe() {
         if (!response.ok) throw new Error('获取衣橱数据失败');
         
         const { clothes } = await response.json();
-
-        // const { items } = await response.json();  // 现在返回的是items
-        // const clothes = items.map(item => ({
-        //   id: item.id,
-        //   preview: item.image ? `data:image/jpeg;base64,${item.image}` : '/default-preview.jpg'
-        // }));
         
         setWardrobeData(prev => ({
           ...prev,
@@ -49,6 +44,11 @@ export default function Wardrobe() {
               ? `data:image/jpeg;base64,${item.preview}` 
               : '/default-preview.jpg'
           }))
+          // 修改
+          // clothes: clothes.map(item => ({
+          //   id: item.id,
+          //   preview: item.preview // 直接使用后端返回的预览URL
+          // }))
         }));
         setError('');
       } catch (err) {
@@ -61,19 +61,21 @@ export default function Wardrobe() {
     fetchWardrobe();
   }, []);
 
-  // // 图片上传处理
+  // 修改
+  // 新增：图片上传处理
   // const handleImageUpload = async (file) => {
   //   if (!file) return;
     
   //   try {
-  //     // 验证文件
-  //     if (!file.type.match(/image\/(jpeg|png)/)) {
-  //       throw new Error('只支持JPEG/PNG图片');
+  //     // 验证文件类型和大小
+  //     const validTypes = ['image/jpeg', 'image/png'];
+  //     if (!validTypes.includes(file.type)) {
+  //       throw new Error('只支持 JPG/PNG 格式图片');
   //     }
   //     if (file.size > 2 * 1024 * 1024) {
-  //       throw new Error('图片大小不能超过2MB');
+  //       throw new Error('图片大小不能超过 2MB');
   //     }
-      
+
   //     setUploading(true);
   //     setError('');
       
@@ -92,19 +94,23 @@ export default function Wardrobe() {
       
   //     if (!response.ok) {
   //       const errorData = await response.json();
-  //       throw new Error(errorData.message || '上传失败');
+  //       throw new Error(errorData.error || '上传失败');
   //     }
       
-  //     const newItem = await response.json();
+  //     const { clothes } = await response.json();
       
+  //     // 修改
   //     // 更新前端状态
   //     setWardrobeData(prev => ({
-  //       ...prev,
-  //       clothes: [...prev.clothes, {
-  //         id: newItem.id,
-  //         preview: `data:image/jpeg;base64,${newItem.image}`
-  //       }]
-  //     }));
+  //         ...prev,
+  //         clothes: clothes.map(item => ({
+  //           id: item.id,
+  //           preview: item.preview 
+  //             ? `data:image/jpeg;base64,${item.preview}` 
+  //             : '/default-preview.jpg'
+  //         }))
+  //       }));
+  //     setError('');
   //   } catch (err) {
   //     setError(`上传失败: ${err.message}`);
   //   } finally {
@@ -112,13 +118,14 @@ export default function Wardrobe() {
   //   }
   // };
 
-  // // 触发文件选择
+  // 修改
+  // 新增：触发文件选择
   // const triggerFileInput = () => {
-  //   const hiddenInput = document.createElement('input');
-  //   hiddenInput.type = 'file';
-  //   hiddenInput.accept = 'image/jpeg, image/png';
-  //   hiddenInput.onchange = (e) => handleImageUpload(e.target.files[0]);
-  //   hiddenInput.click();
+  //   const fileInput = document.createElement('input');
+  //   fileInput.type = 'file';
+  //   fileInput.accept = 'image/jpeg, image/png';
+  //   fileInput.onchange = (e) => handleImageUpload(e.target.files[0]);
+  //   fileInput.click();
   // };
 
   const handleTryOn = async () => {
@@ -248,12 +255,27 @@ const handleDownload = () => {
           onSelect={setSelectedClothing}
           onImageError={handleImageError}
         />
-        
+
+        {/*修改*/}
         {/* <div className="wardrobe-section">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: '1rem'
+          }}>
             <h3 className="section-title">我的收藏</h3>
             <button 
-              className="upload-button"
+              style={{
+                padding: '0.5rem 1rem',
+                background: '#4CAF50',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: 'pointer',
+                fontSize: '0.9rem',
+                transition: 'background 0.3s'
+              }}
               onClick={triggerFileInput}
               disabled={uploading || loading}
             >
@@ -271,10 +293,7 @@ const handleDownload = () => {
                   src={item.preview}
                   alt="衣物预览"
                   className="preview-image"
-                  onError={(e) => {
-                    e.target.src = '/default-preview.jpg';
-                    e.target.alt = '图片加载失败';
-                  }}
+                  onError={handleImageError}
                 />
               </div>
             ))}

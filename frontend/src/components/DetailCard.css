@@ -1,44 +1,86 @@
 /* 主容器 */
 .detail-card {
-  margin-left: 124px; /* 侧边栏100px + 间隙24px */
-  padding: 40px;
-  width: 900px;
+  /* margin-left: 124px; /* 侧边栏100px + 间隙24px */ /* 这个边距可能需要在页面级别组件的容器上设置，而不是卡片本身 */
+  margin: 20px auto; /* 让卡片在页面中居中显示，并有上下边距 */
+  padding: 30px; /* 调整内边距 */
+  width: 900px; /* 固定宽度，可以考虑使用 max-width 以适应不同屏幕 */
+  max-width: 95%; /* 增加最大宽度限制，使其在小屏幕上不会超出 */
   background: white;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1); /* 稍微调整阴影 */
+  font-family: 'Arial', sans-serif; /* 统一字体 */
 }
 
-/* 固定布局 */
-.fixed-layout {
+/* 商品内容区 - 用于包裹图片和信息 */
+.detail-card-content {
   display: grid;
-  grid-template-columns: 450px 1fr;
-  gap: 40px;
+  grid-template-columns: 400px 1fr; /* 左侧图片，右侧信息 */
+  gap: 30px; /* 图片和信息之间的间隙 */
+  margin-bottom: 30px; /* 与评价区域的间距 */
+  padding-bottom: 30px; /* 底部内边距 */
+  border-bottom: 1px solid #eee; /* 分割线 */
 }
 
-/* 图片展示区 */
-.main-image-frame {
-  width: 450px;
-  height: 540px;
-  border: 3px solid #FFE5B6;
+/* 图片容器 - 对应 JS 中的 detail-image-container */
+.detail-image-container {
+  width: 400px; /* 固定宽度 */
+  height: auto; /* 高度自适应 */
+  aspect-ratio: 3 / 4; /* 例如，保持一个常见的图片比例 */
+  border: 2px solid #f0f0f0; /* 浅色边框 */
   border-radius: 12px;
   overflow: hidden;
+  display: flex; /* 用于居中图片 */
+  align-items: center;
+  justify-content: center;
+  background-color: #f9f9f9; /* 图片加载前的背景色 */
 }
 
-.main-image {
+/* 商品图片 - 对应 JS 中的 detail-item-image */
+.detail-item-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* 保持图片比例，裁剪多余部分 */
+  border-radius: 10px; /* 如果容器有圆角，图片也最好有 */
 }
 
-/* 商品信息区 */
-.item-title {
-  font-size: 28px;
+/* 商品信息区 - 对应 JS 中的 detail-info */
+.detail-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* 从顶部开始对齐 */
+}
+
+/* 商品标题 - 对应 JS 中的 detail-item-title */
+.detail-item-title {
+  font-size: 26px; /* 调整字号 */
   color: #333;
-  border-left: 4px solid #FFBB4F;
-  padding-left: 16px;
-  margin: 0 0 24px 0;
+  /* border-left: 4px solid #FFBB4F; */ /* 可以保留或移除，看设计喜好 */
+  /* padding-left: 16px; */
+  margin: 0 0 15px 0; /* 调整边距 */
+  font-weight: 600;
 }
 
+/* 商品简介 - 对应 JS 中的 detail-item-category */
+.detail-item-category {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 10px;
+  background-color: #f0f0f0;
+  padding: 5px 10px;
+  border-radius: 4px;
+  align-self: flex-start; /* 使背景色只包裹文字内容 */
+}
+
+/* 商品描述 - 对应 JS 中的 detail-item-description */
+.detail-item-description {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.6;
+  margin-top: 10px;
+}
+
+/* 你原有的价格、操作按钮等样式，如果 DetailCard.js 中不包含这些元素，可以暂时注释掉或移除 */
+/*
 .price-box {
   color: #E4393C;
   font-size: 36px;
@@ -46,17 +88,6 @@
   margin: 24px 0;
 }
 
-.desc-section {
-  padding: 24px 0;
-  border-top: 2px solid #EEE;
-}
-
-.desc-section h3 {
-  color: #666;
-  margin: 0 0 16px 0;
-}
-
-/* 操作按钮 */
 .action-buttons {
   display: flex;
   gap: 24px;
@@ -64,97 +95,219 @@
   padding: 24px 0;
   border-top: 2px solid #EEE;
 }
+.edit-btn, .wardrobe-btn { ... }
+*/
 
-.edit-btn, .wardrobe-btn {
-  width: 180px;
-  height: 48px;
-  border: none;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-size: 16px;
-  cursor: pointer;
+/* 评价区域 - 对应 JS 中的 reviews-section */
+.reviews-section {
+  margin-top: 20px; /* 与商品详情的间距 */
 }
 
-.edit-btn {
-  background: #83CF60;
-  color: white;
-}
-
-.wardrobe-btn {
-  background: #FFD967;
+.reviews-section h3 {
+  font-size: 22px;
   color: #333;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e0e0e0;
 }
 
-/* 评价面板 */
-.review-panel {
-  background: #FFF9F0;
-  border-radius: 12px;
-  padding: 24px;
-}
-
-.star-rating {
-  margin: 16px 0;
-}
-
-.star {
-  font-size: 28px;
-  color: #DDD;
-  cursor: pointer;
-  margin-right: 8px;
-  transition: color 0.2s;
-}
-
-.star.active {
-  color: #FFBB4F;
-}
-
-.review-input {
-  width: 100%;
-  height: 100px;
-  border: 2px solid #FFE5B6;
+/* 评价表单 - 对应 JS 中的 review-form */
+.review-form {
+  background: #f9f9f9; /* 浅色背景 */
   border-radius: 8px;
-  padding: 16px;
-  margin: 16px 0;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
-.submit-btn {
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* 星星评分容器 - 对应 JS 中的 star-rating (class) */
+.star-rating { /* 与你原有的 .star-rating 样式一致 */
+  margin: 10px 0;
+  display: flex; /* 让星星横向排列 */
+  align-items: center;
+}
+
+/* 单个星星 - 对应 JS 中的 span.star */
+.star { /* 与你原有的 .star 样式一致 */
+  font-size: 26px; /* 稍微调整星星大小 */
+  color: #ddd; /* 未选中颜色 */
+  cursor: pointer;
+  margin-right: 5px; /* 星星间距 */
+  transition: color 0.2s ease-in-out, transform 0.1s ease-in-out;
+}
+
+.star:hover {
+  transform: scale(1.1); /* 悬停时放大一点点 */
+}
+
+/* 选中的星星 - 对应 JS 中的 span.star.filled */
+.star.filled { /* 改为 .filled 以匹配 JS */
+  color: #FFBB4F; /* 选中颜色 */
+}
+
+/* 评价输入框 - 对应 JS 中的 textarea#comment */
+.review-form textarea { /* 使用标签选择器，因为JS中用了id，但也可以给textarea加class */
+  width: 100%;
+  min-height: 100px; /* 最小高度 */
+  border: 1px solid #ddd; /* 边框颜色 */
+  border-radius: 6px;
+  padding: 12px;
+  font-size: 15px;
+  box-sizing: border-box; /* 确保padding和border不增加总宽度 */
+  resize: vertical; /* 允许用户垂直调整大小 */
+  transition: border-color 0.2s;
+}
+
+.review-form textarea:focus {
+  border-color: #FFBB4F;
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 187, 79, 0.5);
+}
+
+/* 提交评价按钮 - 对应 JS 中的 submit-review-button */
+.submit-review-button { /* 与你原有的 .submit-btn 样式类似 */
   background: #FFBB4F;
   color: white;
-  padding: 12px 32px;
+  padding: 10px 25px; /* 调整padding */
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color 0.2s, transform 0.1s;
 }
 
-/* 评价列表 */
-.review-item {
-  padding: 24px 0;
-  border-bottom: 1px solid #EEE;
+.submit-review-button:hover {
+  background: #FFA726; /* 悬停时颜色变深 */
+  transform: translateY(-1px);
 }
 
+.submit-review-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* 评价提交错误提示 - 对应 JS 中的 p.error-text.review-submit-error */
+.review-submit-error { /* 之前CSS中没有这个 */
+  color: #D8000C; /* 错误红色 */
+  background-color: #FFD2D2; /* 淡红色背景 */
+  border: 1px solid #D8000C;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+/* 登录提示 - 对应 JS 中的 p.login-prompt */
+.login-prompt { /* 之前CSS中没有这个 */
+  font-size: 16px;
+  color: #333;
+  padding: 15px;
+  background-color: #fff9e6; /* 淡黄色提示背景 */
+  border: 1px solid #ffe5b4;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.login-prompt a {
+  color: #FFBB4F;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.login-prompt a:hover {
+  text-decoration: underline;
+}
+
+
+/* 评价列表容器 - 对应 JS 中的 reviews-list */
+.reviews-list {
+  margin-top: 20px;
+}
+
+/* 单个评价项 - 对应 JS 中的 review-item */
+.review-item { /* 与你原有的 .review-item 样式一致 */
+  padding: 20px 0;
+  border-bottom: 1px solid #eee;
+}
+.review-item:last-child {
+  border-bottom: none; /* 最后一个评价项无下边框 */
+}
+
+/* 评价作者信息 - 对应 JS 中的 review-author */
+.review-author {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+  font-size: 15px;
+}
+.review-author strong { /* 如果JS结构是 <p><strong>用户</strong> (日期)</p> */
+    margin-right: 5px;
+}
+
+/* 评价日期 (如果与作者信息在同一行，可以调整) */
+/* .review-date { ... } */ /* 原CSS中有，但JS中日期信息整合在 review-author 中 */
+
+/* 评价星级 (在评价列表中显示) - 对应 JS 中的 review-rating div */
+.review-rating {
+  margin-bottom: 8px;
+  display: flex; /* 确保星星在同一行 */
+}
+.review-rating .star { /* 评价列表中的星星可以小一点 */
+  font-size: 18px;
+  margin-right: 3px;
+  cursor: default; /* 列表中的星星不可点击 */
+}
+.review-rating .star:hover {
+  transform: none; /* 列表中的星星悬停无效果 */
+}
+
+/* 评价内容 - 对应 JS 中的 review-comment */
+.review-comment {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.5;
+  white-space: pre-wrap; /* 保留换行符 */
+}
+
+
+/* 你原有的 user-info 和 avatar-error，如果JS中没有直接使用这些类，可以考虑是否还需要 */
+/*
 .user-info {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-bottom: 12px;
 }
-
 .user-info img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   border: 2px solid #FFE5B6;
 }
-
-.review-date {
-  color: #999;
-  font-size: 14px;
-  margin-left: auto;
-}
 .avatar-error {
   filter: grayscale(100%);
   opacity: 0.6;
+}
+*/
+
+/* 通用加载和错误文本样式 (可以放在全局CSS，这里为组件内备用) */
+.loading-text, .error-text {
+  text-align: center;
+  padding: 20px;
+  font-size: 16px;
+}
+.loading-text {
+  color: #555;
+}
+.error-text { /* 调整了 .review-submit-error，这个可以作为通用错误提示 */
+  color: #D8000C;
+}
+.error-text p { /* Details.js 中用了 <p> 换行 */
+  margin-bottom: 5px;
 }
