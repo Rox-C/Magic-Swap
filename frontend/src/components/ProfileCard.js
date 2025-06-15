@@ -43,7 +43,7 @@ function ProfileCard({ username, email, signature, description, avatar, isMercha
         // updates.avatar = fullBase64.split(',')[1]; 
       }
 
-      const response = await fetch('http://10.192.49.63:8080/api/user/update', {
+      const response = await fetch('http://10.192.217.208:8080/api/user/update', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ function ProfileCard({ username, email, signature, description, avatar, isMercha
   const handleLogout = () => {
     setLoading(true);
     setError('');
-    fetch('http://10.192.49.63:8080/api/logout', {
+    fetch('http://10.192.217.208:8080/api/logout', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -118,25 +118,25 @@ function ProfileCard({ username, email, signature, description, avatar, isMercha
         setError('店铺名称不能为空');
         return;
       }
-  
+      // console.log('注册商铺名称:', inputShopName);
       setMerchantLoading(true);
       setError('');
   
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 5000);
   
-      const response = await fetch('http://10.192.49.63:8080/api/merchant/register', {
+      const response = await fetch('http://10.192.217.208:8080/api/merchant/register', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
+          'Authorization': `Bearer ${localStorage.getItem('token')}`, 
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ shopName: inputShopName }),
-        signal: controller.signal
+        body: JSON.stringify({ shopName: inputShopName })
+        // signal: controller.signal
       });
       clearTimeout(timeoutId);
-  
       if (!response.ok) {
+        alert('正在注册商铺，请稍候...');
         const errorData = await response.json();
         throw new Error(errorData.message || `HTTP错误 ${response.status}`);
       }
@@ -287,7 +287,7 @@ function ProfileCard({ username, email, signature, description, avatar, isMercha
           {loading ? '退出中...' : '退出登录'}
         </button>
         
-        {!isMerchant && (
+        {/* {!isMerchant && (
           <button 
             className="register-merchant-button"
             onClick={handleRegisterClick}
@@ -295,7 +295,7 @@ function ProfileCard({ username, email, signature, description, avatar, isMercha
           >
             {merchantLoading ? '注册中...' : '注册商铺'}
           </button>
-        )}
+        )} */}
         
         {error && <div className="error-message">{error}</div>}
       </div>

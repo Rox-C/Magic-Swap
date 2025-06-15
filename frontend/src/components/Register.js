@@ -20,7 +20,7 @@ function Register() {
       return;
     }
     try {
-      const res = await fetch("http://10.192.49.63:8080/api/auth/register", {
+      const res = await fetch("http://10.192.217.208:8080/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, email, password, avatar: "", signature: "", description: "" }),

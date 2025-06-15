@@ -12,7 +12,7 @@ function Login() {
     e.preventDefault();
     setError("");
     try {
-      const res = await fetch("http://10.192.49.63:8080/api/auth/login", {
+      const res = await fetch("http://10.192.217.208:8080/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
@@ -22,7 +22,7 @@ function Login() {
         localStorage.setItem("token", data.token);
         try {
           const userToken = data.token; // 使用刚获取的token
-          const wardrobeResponse = await fetch("http://10.192.49.63:8080/api/wardrobe", {
+          const wardrobeResponse = await fetch("http://10.192.217.208:8080/api/wardrobe", {
             headers: {
               'Authorization': `Bearer ${userToken}`
             }

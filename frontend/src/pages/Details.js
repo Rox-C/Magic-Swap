@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react'; // Added useCal
 import { useParams } from 'react-router-dom';
 import DetailCard from '../components/DetailCard';
 
-const API_BASE_URL = 'http://10.192.49.63:8080';
+const API_BASE_URL = 'http://10.192.217.208:8080';
 
 export default function Details() {
   const { itemId } = useParams();

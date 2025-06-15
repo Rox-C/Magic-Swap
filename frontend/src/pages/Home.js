@@ -20,7 +20,7 @@ export default function Home() {
         const initialFavorites = JSON.parse(localStorage.getItem('favoritedItems')) || [];
         setFavoritedItems(new Set(initialFavorites));
 
-        const res = await fetch('http://10.192.49.63:8080/api/home/items', {
+        const res = await fetch('http://10.192.217.208:8080/api/home/items', {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
@@ -49,12 +49,12 @@ export default function Home() {
     let errorMessage = '';
 
     if (isCurrentlyFavorited) {
-      apiEndpoint = 'http://10.192.49.63:8080/api/wardrobe/remove';
+      apiEndpoint = 'http://10.192.217.208:8080/api/wardrobe/remove';
       newFavoritedItems.delete(itemId);
       // successMessage = '取消收藏成功！'; // 未被使用
       errorMessage = '取消收藏失败';
     } else {
-      apiEndpoint = 'http://10.192.49.63:8080/api/wardrobe/add';
+      apiEndpoint = 'http://10.192.217.208:8080/api/wardrobe/add';
       newFavoritedItems.add(itemId);
       // successMessage = '收藏成功！'; // 未被使用
       errorMessage = '收藏失败';

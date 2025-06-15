@@ -18,7 +18,7 @@ export default function MyStorePage() {
     setIsLoadingImages(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://10.192.49.63:8080/api/items/my', {
+      const response = await fetch('http://10.192.217.208:8080/api/items/my', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -89,7 +89,7 @@ export default function MyStorePage() {
     setUploadMessage('');
   
     try {
-      const response = await fetch('http://10.192.49.63:8080/api/items', {
+      const response = await fetch('http://10.192.217.208:8080/api/items', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -121,7 +121,7 @@ export default function MyStorePage() {
 
   const handleDeleteItem = async (itemId) => {
     try {
-      const response = await fetch(`http://10.192.49.63:8080/api/items/${itemId}`, {
+      const response = await fetch(`http://10.192.217.208:8080/api/items/${itemId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`

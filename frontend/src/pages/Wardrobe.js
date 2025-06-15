@@ -26,7 +26,7 @@ export default function Wardrobe() {
     const fetchWardrobe = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://10.192.49.63:8080/api/wardrobe', {
+        const response = await fetch('http://10.192.217.208:8080/api/wardrobe', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -84,7 +84,7 @@ export default function Wardrobe() {
   //     formData.append('image', file);
       
   //     // 调用上传API
-  //     const response = await fetch('http://10.192.49.63:8080/api/wardrobe/upload', {
+  //     const response = await fetch('http://10.192.217.208:8080/api/wardrobe/upload', {
   //       method: 'POST',
   //       headers: {
   //         'Authorization': `Bearer ${token}`
@@ -152,7 +152,7 @@ export default function Wardrobe() {
       };
   
       // 发送到Python后端
-      const response = await fetch('http://10.192.49.63:5000/api/try-on', {
+      const response = await fetch('http://10.192.217.208:5000/api/try-on', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

@@ -25,7 +25,7 @@ export default function Profile() {
     const fetchUserData = async () => {
       try {
         const [userResponse, defaultAvatar] = await Promise.all([
-          fetch('http://10.192.49.63:8080/api/user', {
+          fetch('http://10.192.217.208:8080/api/user', {
             headers: {
               'Authorization': `Bearer ${localStorage.getItem('token')}`
             }

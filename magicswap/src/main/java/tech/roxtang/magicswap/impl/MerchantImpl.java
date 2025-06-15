@@ -23,19 +23,27 @@ public class MerchantImpl implements MerchantService {
     @Override
     @Transactional
     public User registerAsMerchant(String userId, String shopName) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("用户不存在"));
-        
-        if (user.getIsMerchant()) {
-            throw new IllegalStateException("用户已经是商家");
+        try{
+            User user = userRepository.findById(userId)
+            .orElseThrow(() -> new IllegalArgumentException("用户不存在"));
+            
+            // System.out.println("更新商铺Updated User: " + user.getId() + ", shopName: " + shopName);
+            if (user.getIsMerchant()) {
+                throw new IllegalStateException("用户已经是商家");
+            }
+            
+            if (shopName == null || shopName.trim().isEmpty()) {
+                throw new IllegalArgumentException("店铺名称不能为空");
+            }
+            
+            user.setIsMerchant(true);
+            user.setShopName(shopName);
+            return userRepository.save(user);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("注册商家失败: " + e.getMessage());
+        } catch (IllegalStateException e) {
+            throw new IllegalStateException("注册商家失败: " + e.getMessage());
         }
-        
-        if (shopName == null || shopName.trim().isEmpty()) {
-            throw new IllegalArgumentException("店铺名称不能为空");
-        }
-        
-        user.setIsMerchant(true);
-        user.setShopName(shopName);
-        return userRepository.save(user);
+
     }
 }
